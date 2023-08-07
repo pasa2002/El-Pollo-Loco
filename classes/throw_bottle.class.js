@@ -56,6 +56,12 @@ class ThrowBottle extends MovableObject{
         this.animate();
     }
 
+    handleCollisionWithEndboss(endboss){
+        if(this.isColliding(endboss)){
+            this.splashBottle();
+        }
+    }
+
         /**
      * Throws the bottle to the right.
      */
@@ -94,8 +100,9 @@ class ThrowBottle extends MovableObject{
      * Initiates the damaged (splash) animation of the bottle.
      */
     splashBottle() {
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_DAMAGED_BOTTLE);
-        }, 100);
+        this.playAnimation(this.IMAGES_DAMAGED_BOTTLE);
+        setTimeout(() => {
+            this.splashBottle();
+        }, 1000);
     }
 }

@@ -82,6 +82,7 @@ function muteSound() {
     audio_bossAttack.muted = true;
     audio_bottle.muted = true;
     audio_chicken.muted = true;
+    localStorage.setItem('mutedSound', true);
 }
 
 function playSound() {
@@ -102,4 +103,5 @@ function playSound() {
     audio_bossAttack.muted = false;
     audio_bottle.muted = false;
     audio_chicken.muted = false;
+    localStorage.setItem('mutedSound', false);
 }

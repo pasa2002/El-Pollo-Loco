@@ -67,6 +67,9 @@ class World {
             this.checkCollisionsWithChicken();
             this.checkCollisionsWithEndboss();
             this.checkCollisionsWithLitteChicken();
+            this.throwBottle.forEach((bottle) => {
+                bottle.handleCollisionWithEndboss(this.endboss);
+            });
         }, 1000 / 60);
         intervalIDs.push(runInterval1);
     }
@@ -273,6 +276,10 @@ class World {
                         audio_chicken2.play();
                         audio_hit_bottle.play();
                     }
+
+                    endboss.playAnimation(endboss.IMAGES_SPLASH, () => {
+                        this.hitEndboss = false;
+                    });
                     setTimeout(() => {
                         this.hitEndboss = false;
                     }, 1000);

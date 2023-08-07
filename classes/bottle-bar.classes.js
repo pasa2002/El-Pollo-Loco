@@ -46,10 +46,8 @@ class Bottlebar extends DrawableObject {
     }
 
     setPercentBottles(percent_bottle) {
-        console.log("Setting percent_bottle to:", percent_bottle);
         this.percent_bottle = percent_bottle;
         let path = this.IMAGES_BOTTLE[this.bottleIndex()];
-        console.log("Setting image path:", path);
         this.img = this.imageCache[path];
     }
 

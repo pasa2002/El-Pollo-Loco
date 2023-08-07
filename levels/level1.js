@@ -2,6 +2,12 @@ let level1;
 
 function initLevel() {
 
+    const storedMutedState = localStorage.getItem('mutedSound');
+    if (storedMutedState === 'true') {
+        muteSound();
+    } else {
+        playSound();
+    }
     level1 = new Level([
             new Chicken(),
             new Chicken(),

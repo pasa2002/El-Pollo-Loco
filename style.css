@@ -399,9 +399,12 @@ body {
         width: 100vw;
         height: 100vh;
     }
+    body{
+
+        overflow: hidden;
+    }
     .wrongFormate img {
-        width: 100%;
-        height: 100%;
+        background-size: cover;
     }
     .wrongFormate h1 {
         position: absolute;
