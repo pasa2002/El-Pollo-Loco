@@ -28,7 +28,30 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.10 + Math.random() * 0.25;
+        this.minDistance = 200; // Minimum distance between chickens
+        this.nearestChickenIndex = -1; // Index of the nearest chicken
         this.animate();
+    }
+
+    setNearestChickenIndex(index) {
+        this.nearestChickenIndex = index;
+    }
+
+    checkDistanceToOtherChickens(enemies) {
+        let nearestChickenDistance = Infinity;
+        let nearestChickenIndex = -1;
+
+        for (let i = 0; i < enemies.length; i++) {
+            if (i !== this.nearestChickenIndex) {
+                const distanceToChicken = Math.abs(this.x - enemies[i].x);
+                if (distanceToChicken < nearestChickenDistance) {
+                    nearestChickenDistance = distanceToChicken;
+                    nearestChickenIndex = i;
+                }
+            }
+        }
+
+        return nearestChickenDistance;
     }
     /**
      * Animates the chicken's movement and animation.

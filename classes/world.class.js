@@ -217,16 +217,68 @@ class World {
         });
     }
 
+
+
     hitEnemyFromTheTop() {
-        this.level.enemies.forEach((enemies, i) => {
-            if (this.character.isColliding(enemies) && this.character.isInAir() && !this.character.isHurt()) {
-                enemies.hitChicken();
-                this.character.jump();
+        const closestEnemy = this.findClosestEnemy();
+        if (closestEnemy) {
+            this.hitAndRemoveEnemy(closestEnemy);
+        }
+    }
+    
+    findClosestEnemy() {
+        let closestEnemy = null;
+        let closestDistance = Infinity;
+        const characterX = this.character.x;
+    
+        // Find the closest enemy to the character's X position
+        this.level.enemies.forEach((enemy, i) => {
+            const enemyX = enemy.x;
+            const distance = Math.abs(enemyX - characterX);
+            if (this.character.isColliding(enemy) && this.character.isInAir() && !this.character.isHurt() && distance < closestDistance) {
+                closestEnemy = enemy;
+                closestDistance = distance;
+            }
+        });
+    
+        return closestEnemy;
+    }
+    
+    hitAndRemoveEnemy(enemy) {
+        let isHittingEnemy = true; // Set the flag to indicate the character is hitting an enemy
+        this.character.jump();
+        enemy.hitChicken();
+    
+        if (!mutedSound) {
+            audio_chicken2.play();
+        }
+    
+        setTimeout(() => {
+            isHittingEnemy = false; // Reset the flag after 250ms
+            const index = this.level.enemies.indexOf(enemy);
+            if (index !== -1) {
+                this.level.enemies.splice(index, 1);
+                console.log("Enemy removed at index:", index);
+            }
+        }, 250);
+    }
+    
+    
+
+
+
+    hitLittleChickenFromTheTop() {
+        this.level.littlechicken.forEach((littlechicken, i) => {
+            if (this.character.isColliding(littlechicken) && this.character.y > 120 && !this.character.isHurt()) {
+                littlechicken.hitLittleChicken();
+                if (this.character.isInAir()) {
+                    this.character.jump();
+                }
                 if (!mutedSound) {
                     audio_chicken2.play();
                 }
                 setTimeout(() => {
-                    this.level.enemies.splice(i, 1);
+                    this.level.littlechicken.splice(i, 1);
                 }, 250);
             }
         });
@@ -246,23 +298,6 @@ class World {
                     }, 250);
                 }
             });
-        });
-    }
-
-    hitLittleChickenFromTheTop() {
-        this.level.littlechicken.forEach((littlechicken, i) => {
-            if (this.character.isColliding(littlechicken) && this.character.y > 120 && !this.character.isHurt()) {
-                littlechicken.hitLittleChicken();
-                if (this.character.isInAir()) {
-                    this.character.jump();
-                }
-                if (!mutedSound) {
-                    audio_chicken2.play();
-                }
-                setTimeout(() => {
-                    this.level.littlechicken.splice(i, 1);
-                }, 250);
-            }
         });
     }
 

@@ -89,6 +89,15 @@ class Character extends MovableObject {
         this.animate();
         this.applyGravity();
         this.startSleepCheckInterval();
+        this.hasHitChicken = false;
+        this.nearestChickenIndex = -1;
+    }
+
+    setHitChickenStatus(hasHit){
+        this.hasHitChicken = hasHit;
+    }
+    setNearestChickenIndex(index) {
+        this.nearestChickenIndex = index;
     }
 
     /**
