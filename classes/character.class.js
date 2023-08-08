@@ -103,7 +103,7 @@ class Character extends MovableObject {
          * @type {number}
          */
         const sleepCheckInterval = setInterval(() => {
-            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT) {
+            if (!this.world.keyboard.RIGHT && !this.world.keyboard.LEFT && !this.world.keyboard.SPACE) {
                 timeSinceLastMovement += 100; 
             } else {
                 timeSinceLastMovement = 0;
@@ -112,6 +112,9 @@ class Character extends MovableObject {
             if (timeSinceLastMovement >= 5000) {
                 this.playLongIdleAnimation(longIdleIndex);
                 longIdleIndex = (longIdleIndex + 1) % this.IMAGES_LONGIDLE.length;
+                this.playSnoringSound();
+            }else{
+                audio_snoring.pause();
             }
         }, 100); // Check every 100ms
     
@@ -222,16 +225,28 @@ class Character extends MovableObject {
             walking_sound.play();
         }
     }
-    
+            /**
+     * Plays the jump sound if not muted.
+     */
     playJumpingSound() {
         if (!mutedSound) {
             jumping_sound.play();
         }
     }
-    
+            /**
+     * Plays the dead sound if not muted.
+     */
     handleDeadSound() {
         if (!mutedSound) {
             audio_lose.play();
+        }
+    }
+        /**
+     * Plays the snoring sound if not muted.
+     */
+    playSnoringSound(){
+        if(!mutedSound){
+            audio_snoring.play();
         }
     }
     
@@ -246,7 +261,9 @@ class Character extends MovableObject {
             endscreen();
         }, 500);
     }
-    
+            /**
+     * Plays the hurt sound if not muted.
+     */
     playHurtSound() {
         if (!mutedSound) {
             audio_hurt.play();

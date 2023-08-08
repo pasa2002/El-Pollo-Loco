@@ -275,11 +275,12 @@ class World {
                     if (!mutedSound) {
                         audio_chicken2.play();
                         audio_hit_bottle.play();
-                    }
-
-                    endboss.playAnimation(endboss.IMAGES_SPLASH, () => {
+                        endboss.playAnimation(endboss.IMAGES_SPLASH, () => {
                         this.hitEndboss = false;
                     });
+                    }
+
+
                     setTimeout(() => {
                         this.hitEndboss = false;
                     }, 1000);

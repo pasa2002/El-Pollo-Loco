@@ -103,6 +103,6 @@ class ThrowBottle extends MovableObject{
         this.playAnimation(this.IMAGES_DAMAGED_BOTTLE);
         setTimeout(() => {
             this.splashBottle();
-        }, 1000);
+        }, 2000);
     }
 }

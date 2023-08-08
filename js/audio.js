@@ -12,6 +12,7 @@ let audio_bottle = new Audio('./audio/bottle.mp3');
 let audio_chicken = new Audio('./audio/deadChicken.mp3');
 let audio_win = new Audio('./audio/winnerApplause.mp3');
 let audio_lose = new Audio('./audio/lostGame.mp3');
+let audio_snoring = new Audio('./audio/snoring.mp3')
 
 function playShotSound() {
     audio_shot.play();
@@ -61,6 +62,10 @@ function playChickenSound() {
     audio_chicken.play();
 }
 
+function playSnoringSound(){
+    audio_snoring.play();
+}
+
 
 let mutedSound = false;
 
@@ -82,6 +87,7 @@ function muteSound() {
     audio_bossAttack.muted = true;
     audio_bottle.muted = true;
     audio_chicken.muted = true;
+    audio_snoring.muted = true; 
     localStorage.setItem('mutedSound', true);
 }
 
@@ -102,6 +108,7 @@ function playSound() {
     jumping_sound.muted = false;
     audio_bossAttack.muted = false;
     audio_bottle.muted = false;
+    audio_snoring.muted = false;
     audio_chicken.muted = false;
     localStorage.setItem('mutedSound', false);
 }
